@@ -69,11 +69,7 @@ for number_of_components in range(start_number_of_components, start_number_of_co
     model = cv2.face.EigenFaceRecognizer_create(number_of_components)  
     model.train(train_persons_faces, np.array(train_persons_labels))
 
-    prediction = list()
-   
-    for face in test_persons_faces:
-        label, confidence = model.predict(face)
-        prediction.append(label)
+    prediction = [model.predict(test_person_face)[0] for test_person_face in test_persons_faces]
     
     accuracy = accuracy_score(prediction, test_persons_labels) * 100
     print(f'Com {number_of_components} componentes principais, a acurácia é de {accuracy}%.')
